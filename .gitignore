@@ -1,0 +1,22 @@
+# Godot 4 build and editor caches
+.godot/
+.import/
+
+# Exported builds
+export/
+
+# Logs and temporary files
+*.log
+*.tmp
+*.swp
+*.swo
+*~
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+*.sublime-*
