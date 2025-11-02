@@ -1,0 +1,46 @@
+[gd_scene load_steps=5 format=3 uid="uid://cpujq1n83ql3j"]
+
+[ext_resource type="Script" path="res://scripts/Player.gd" id="1_player_script"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_player_collision"]
+size = Vector2(32, 48)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_sprite"]
+size = Vector2(32, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_player"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("PlaceholderTexture2D_sprite")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("PlaceholderTexture2D_sprite")
+}],
+"loop": true,
+"name": &"jump",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("PlaceholderTexture2D_sprite")
+}],
+"loop": true,
+"name": &"run",
+"speed": 10.0
+}]
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_player_script")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_player")
+animation = &"idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_player_collision")
