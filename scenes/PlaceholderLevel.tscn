@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://c146luq5d1bje"]
+
+[node name="PlaceholderLevel" type="Node2D"]
+
+[node name="Label" type="Label" parent="."]
+offset_left = 540.0
+offset_top = 340.0
+offset_right = 740.0
+offset_bottom = 420.0
+theme_override_font_sizes/font_size = 48
+text = "Platformer"
+horizontal_alignment = 1
+vertical_alignment = 1
