@@ -1,0 +1,94 @@
+[gd_scene load_steps=2 format=3 uid="uid://cjxpnh6n5u3ya"]
+
+[ext_resource type="Script" path="res://scripts/PauseMenu.gd" id="1_pause_script"]
+
+[node name="PauseMenu" type="CanvasLayer"]
+visible = false
+script = ExtResource("1_pause_script")
+
+[node name="Dimmer" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.55)
+
+[node name="Panel" type="Panel" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -200.0
+offset_right = 200.0
+offset_bottom = 200.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 24.0
+offset_top = 24.0
+offset_right = -24.0
+offset_bottom = -24.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 24
+alignment = 1
+
+[node name="Title" type="Label" parent="Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "Paused"
+horizontal_alignment = 1
+
+[node name="ResumeButton" type="Button" parent="Panel/VBoxContainer"]
+custom_minimum_size = Vector2(240, 48)
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Resume"
+
+[node name="QuitToMenuButton" type="Button" parent="Panel/VBoxContainer"]
+custom_minimum_size = Vector2(240, 48)
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Quit to Menu"
+
+[node name="VolumeContainer" type="VBoxContainer" parent="Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="VolumeLabel" type="Label" parent="Panel/VBoxContainer/VolumeContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "Master Volume"
+horizontal_alignment = 1
+
+[node name="VolumeControls" type="HBoxContainer" parent="Panel/VBoxContainer/VolumeContainer"]
+layout_mode = 2
+theme_override_constants/separation = 12
+size_flags_horizontal = 3
+
+[node name="VolumeSlider" type="HSlider" parent="Panel/VBoxContainer/VolumeContainer/VolumeControls"]
+custom_minimum_size = Vector2(220, 24)
+layout_mode = 2
+min_value = 0.0
+max_value = 1.0
+step = 0.01
+page = 0.05
+size_flags_horizontal = 3
+
+[node name="VolumeValue" type="Label" parent="Panel/VBoxContainer/VolumeContainer/VolumeControls"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "100%"
+vertical_alignment = 1
+
+[connection signal="pressed" from="Panel/VBoxContainer/ResumeButton" to="." method="_on_resume_button_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/QuitToMenuButton" to="." method="_on_quit_to_menu_button_pressed"]
+[connection signal="value_changed" from="Panel/VBoxContainer/VolumeContainer/VolumeControls/VolumeSlider" to="." method="_on_volume_slider_value_changed"]
