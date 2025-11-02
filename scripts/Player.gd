@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+signal player_died
+
 # Movement parameters
 @export var speed: float = 300.0
 @export var acceleration: float = 1500.0
@@ -19,13 +21,25 @@ var coyote_timer: float = 0.0
 @export var jump_buffer_time: float = 0.1
 var jump_buffer_timer: float = 0.0
 
+# Death detection
+@export var death_y: float = 1000.0
+var _is_dead: bool = false
+
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 
 func _ready() -> void:
-    # Initialize sprite direction
+    add_to_group("player")
     animated_sprite.play("idle")
 
 func _physics_process(delta: float) -> void:
+    if _is_dead:
+        return
+    
+    # Check for death first
+    if global_position.y > death_y:
+        _die()
+        return
+    
     # Get input direction
     var input_direction: float = Input.get_axis("move_left", "move_right")
     
@@ -68,6 +82,14 @@ func _physics_process(delta: float) -> void:
     
     # Update animations
     update_animations(input_direction)
+
+func _die() -> void:
+    if _is_dead:
+        return
+    _is_dead = true
+    velocity = Vector2.ZERO
+    set_physics_process(false)
+    emit_signal("player_died")
 
 func update_animations(input_direction: float) -> void:
     # Flip sprite based on movement direction

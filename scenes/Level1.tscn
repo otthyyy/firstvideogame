@@ -1,13 +1,36 @@
-[gd_scene load_steps=5 format=3 uid="uid://cd6dj5t0h6w5q"]
+[gd_scene load_steps=8 format=3 uid="uid://cd6dj5t0h6w5q"]
 
 [ext_resource type="PackedScene" uid="uid://c146luq5d1bje" path="res://scenes/PlaceholderLevel.tscn" id="1_level"]
 [ext_resource type="Script" path="res://scripts/Level1.gd" id="2_level_script"]
 [ext_resource type="PackedScene" uid="uid://cjxpnh6n5u3ya" path="res://scenes/PauseMenu.tscn" id="3_pause_menu"]
+[ext_resource type="PackedScene" uid="uid://cpujq1n83ql3j" path="res://scenes/Player.tscn" id="4_player"]
+[ext_resource type="PackedScene" uid="uid://c5q2rkje7u4aj" path="res://scenes/Coin.tscn" id="5_coin"]
+[ext_resource type="PackedScene" uid="uid://coeg0y3w1hffa" path="res://scenes/Goal.tscn" id="6_goal"]
 
 [node name="Level1" type="Node2D"]
 script = ExtResource("2_level_script")
 
 [node name="PlaceholderLevel" parent="." instance=ExtResource("1_level")]
+
+[node name="Player" parent="." instance=ExtResource("4_player")]
+position = Vector2(200, 500)
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+current = true
+position_smoothing_enabled = true
+position_smoothing_speed = 5.0
+
+[node name="Coin" parent="." instance=ExtResource("5_coin")]
+position = Vector2(400, 500)
+
+[node name="Coin2" parent="." instance=ExtResource("5_coin")]
+position = Vector2(600, 400)
+
+[node name="Coin3" parent="." instance=ExtResource("5_coin")]
+position = Vector2(800, 300)
+
+[node name="Goal" parent="." instance=ExtResource("6_goal")]
+position = Vector2(1000, 500)
 
 [node name="HUD" type="CanvasLayer" parent="."]
 
@@ -31,21 +54,19 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 20
 text = "Level 1"
 
+[node name="ScoreLabel" type="Label" parent="HUD/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Score: 0"
+
+[node name="LivesLabel" type="Label" parent="HUD/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Lives: 3"
+
 [node name="HintLabel" type="Label" parent="HUD/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Press ESC to toggle pause."
-
-[node name="Buttons" type="HBoxContainer" parent="HUD/MarginContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/separation = 12
-
-[node name="CompleteButton" type="Button" parent="HUD/MarginContainer/VBoxContainer/Buttons"]
-layout_mode = 2
-text = "Complete Level"
-
-[node name="GameOverButton" type="Button" parent="HUD/MarginContainer/VBoxContainer/Buttons"]
-layout_mode = 2
-text = "Game Over"
 
 [node name="PauseMenu" parent="." instance=ExtResource("3_pause_menu")]
 
@@ -103,7 +124,5 @@ custom_minimum_size = Vector2(220, 48)
 layout_mode = 2
 text = "Quit to Menu"
 
-[connection signal="pressed" from="HUD/MarginContainer/VBoxContainer/Buttons/CompleteButton" to="." method="_on_complete_button_pressed"]
-[connection signal="pressed" from="HUD/MarginContainer/VBoxContainer/Buttons/GameOverButton" to="." method="_on_game_over_button_pressed"]
 [connection signal="pressed" from="EndMenu/Panel/VBoxContainer/RestartButton" to="." method="_on_restart_button_pressed"]
 [connection signal="pressed" from="EndMenu/Panel/VBoxContainer/QuitToMenuButton" to="." method="_on_quit_to_menu_from_end_pressed"]
