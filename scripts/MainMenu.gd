@@ -12,6 +12,7 @@ func _ready() -> void:
     start_button.grab_focus()
 
 func _on_start_button_pressed() -> void:
+    GameState.reset_progress()
     get_tree().change_scene_to_file("res://scenes/Level1.tscn")
 
 func _on_quit_button_pressed() -> void:
