@@ -1,16 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://bpnb08o6gdccp"]
+[gd_scene load_steps=2 format=3 uid="uid://bpnb08o6gdccp"]
 
-[ext_resource type="PackedScene" uid="uid://c146luq5d1bje" path="res://scenes/PlaceholderLevel.tscn" id="1_level"]
-[ext_resource type="PackedScene" uid="uid://cpujq1n83ql3j" path="res://scenes/Player.tscn" id="2_player"]
+[ext_resource type="PackedScene" uid="uid://cd6dj5t0h6w5q" path="res://scenes/Level1.tscn" id="1_level"]
 
 [node name="Main" type="Node2D"]
 
-[node name="PlaceholderLevel" parent="." instance=ExtResource("1_level")]
-
-[node name="Player" parent="." instance=ExtResource("2_player")]
-position = Vector2(200, 500)
-
-[node name="Camera2D" type="Camera2D" parent="Player"]
-current = true
-position_smoothing_enabled = true
-position_smoothing_speed = 5.0
+[node name="Level1" parent="." instance=ExtResource("1_level")]

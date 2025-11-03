@@ -1,0 +1,27 @@
+[gd_resource type="TileSet" load_steps=3 format=3 uid="uid://coexnx00fgtst"]
+
+[ext_resource type="Texture2D" uid="uid://b7i7qr2k8lmss" path="res://assets/basic_tiles.png" id="1_tiles"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_12345"]
+texture = ExtResource("1_tiles")
+texture_region_size = Vector2i(32, 32)
+0:0/size_in_atlas = Vector2i(1, 1)
+0:0/texture_region = Rect2i(0, 0, 32, 32)
+0:0/alternative_tiles_count = 0
+0:0/physics_layer_0/polygon_count = 1
+0:0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+0:0/physics_layer_0/polygon_0/one_way = false
+0:0/physics_layer_0/polygon_0/one_way_margin = 1.0
+1:0/size_in_atlas = Vector2i(1, 1)
+1:0/texture_region = Rect2i(32, 0, 32, 32)
+1:0/alternative_tiles_count = 0
+1:0/physics_layer_0/polygon_count = 1
+1:0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+1:0/physics_layer_0/polygon_0/one_way = false
+1:0/physics_layer_0/polygon_0/one_way_margin = 1.0
+
+[resource]
+tile_size = Vector2i(32, 32)
+physics_layer_0/collision_layer = 1
+physics_layer_0/collision_mask = 1
+sources/0 = SubResource("TileSetAtlasSource_12345")
