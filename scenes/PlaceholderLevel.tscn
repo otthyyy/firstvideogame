@@ -1,7 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://c146luq5d1bje"]
+[gd_scene load_steps=4 format=3 uid="uid://c146luq5d1bje"]
 
 [ext_resource type="TileSet" uid="uid://b2kktmx1fdxwr" path="res://tilesets/GroundTileset.tres" id="1_tileset"]
 [ext_resource type="Script" path="res://scripts/GroundTileMap.gd" id="2_ground_tilemap_script"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_floor"]
+size = Vector2(2000, 50)
 
 [node name="PlaceholderLevel" type="Node2D"]
 
@@ -10,6 +13,12 @@ tile_set = ExtResource("1_tileset")
 collision_layer = 1
 collision_mask = 1
 script = ExtResource("2_ground_tilemap_script")
+
+[node name="Floor" type="StaticBody2D" parent="."]
+position = Vector2(640, 600)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
+shape = SubResource("RectangleShape2D_floor")
 
 [node name="Label" type="Label" parent="."]
 offset_left = 540.0
