@@ -1,16 +1,30 @@
-[gd_scene load_steps=8 format=3 uid="uid://cd6dj5t0h6w5q"]
+[gd_scene load_steps=11 format=3 uid="uid://cd6dj5t0h6w5q"]
 
-[ext_resource type="PackedScene" uid="uid://c146luq5d1bje" path="res://scenes/PlaceholderLevel.tscn" id="1_level"]
+[ext_resource type="TileSet" uid="uid://coexnx00fgtst" path="res://tilesets/basic_tileset.tres" id="1_tileset"]
 [ext_resource type="Script" path="res://scripts/Level1.gd" id="2_level_script"]
 [ext_resource type="PackedScene" uid="uid://cjxpnh6n5u3ya" path="res://scenes/PauseMenu.tscn" id="3_pause_menu"]
 [ext_resource type="PackedScene" uid="uid://cpujq1n83ql3j" path="res://scenes/Player.tscn" id="4_player"]
 [ext_resource type="PackedScene" uid="uid://c5q2rkje7u4aj" path="res://scenes/Coin.tscn" id="5_coin"]
 [ext_resource type="PackedScene" uid="uid://coeg0y3w1hffa" path="res://scenes/Goal.tscn" id="6_goal"]
+[ext_resource type="Texture2D" uid="uid://cs0p8mv8h6yty" path="res://assets/background_gradient.png" id="7_bg"]
 
 [node name="Level1" type="Node2D"]
 script = ExtResource("2_level_script")
 
-[node name="PlaceholderLevel" parent="." instance=ExtResource("1_level")]
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.3, 0.3)
+motion_mirroring = Vector2(1280, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
+position = Vector2(640, 360)
+scale = Vector2(5, 5.625)
+texture = ExtResource("7_bg")
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource("1_tileset")
+format = 2
 
 [node name="Player" parent="." instance=ExtResource("4_player")]
 position = Vector2(200, 500)
