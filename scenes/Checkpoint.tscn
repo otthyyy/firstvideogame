@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://c1q5rj7v2m6bn"]
+
+[ext_resource type="Texture2D" uid="uid://crq3rpfqbmcat" path="res://assets/flag.png" id="1_flag_texture"]
+[ext_resource type="Script" path="res://scripts/Checkpoint.gd" id="2_checkpoint_script"]
+[ext_resource type="AudioStream" path="res://audio/checkpoint.wav" id="3_checkpoint_audio"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_checkpoint"]
+size = Vector2(32, 64)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_checkpoint_stand"]
+size = Vector2(32, 32)
+color = Color(0.3, 0.3, 0.3, 1)
+
+[node name="Checkpoint" type="Area2D"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("2_checkpoint_script")
+
+[node name="Pole" type="Sprite2D" parent="."]
+position = Vector2(0, 16)
+texture = SubResource("PlaceholderTexture2D_checkpoint_stand")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -16)
+texture = ExtResource("1_flag_texture")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_checkpoint")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_checkpoint_audio")
+bus = &"SFX"

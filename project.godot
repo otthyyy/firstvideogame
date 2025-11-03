@@ -10,9 +10,14 @@ config_version=5
 
 [application]
 
-config/name="First Video Game"
+config/name="Platformer Starter"
 run/main_scene="res://scenes/MainMenu.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
+config/version="v0.1.0"
+
+[audio]
+
+buses/default_bus_layout="res://audio/bus_layout.tres"
 
 [autoload]
 

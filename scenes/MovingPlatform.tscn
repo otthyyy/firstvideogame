@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://cvjw8y4e45nl2"]
+
+[ext_resource type="Script" path="res://scripts/MovingPlatform.gd" id="1_moving_platform_script"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_platform"]
+size = Vector2(96, 16)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_platform"]
+size = Vector2(96, 16)
+color = Color(0.5, 0.4, 0.3, 1)
+
+[node name="MovingPlatform" type="AnimatableBody2D"]
+collision_layer = 1
+collision_mask = 2
+script = ExtResource("1_moving_platform_script")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("PlaceholderTexture2D_platform")
+centered = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_platform")

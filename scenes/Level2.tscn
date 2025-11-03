@@ -1,7 +1,7 @@
-[gd_scene load_steps=11 format=3 uid="uid://cd6dj5t0h6w5q"]
+[gd_scene load_steps=12 format=3 uid="uid://bxjt3c5k9h7p2"]
 
 [ext_resource type="TileSet" uid="uid://coexnx00fgtst" path="res://tilesets/basic_tileset.tres" id="1_tileset"]
-[ext_resource type="Script" path="res://scripts/Level1.gd" id="2_level_script"]
+[ext_resource type="Script" path="res://scripts/Level2.gd" id="2_level_script"]
 [ext_resource type="PackedScene" uid="uid://cjxpnh6n5u3ya" path="res://scenes/PauseMenu.tscn" id="3_pause_menu"]
 [ext_resource type="PackedScene" uid="uid://cpujq1n83ql3j" path="res://scenes/Player.tscn" id="4_player"]
 [ext_resource type="PackedScene" path="res://scenes/Collectible.tscn" id="5_collectible"]
@@ -11,9 +11,9 @@
 [ext_resource type="PackedScene" path="res://scenes/Hazard.tscn" id="9_hazard"]
 [ext_resource type="PackedScene" path="res://scenes/Checkpoint.tscn" id="10_checkpoint"]
 [ext_resource type="PackedScene" path="res://scenes/Enemy.tscn" id="11_enemy"]
-[ext_resource type="AudioStream" path="res://audio/level_music.wav" id="12_music"]
+[ext_resource type="PackedScene" path="res://scenes/MovingPlatform.tscn" id="12_moving_platform"]
 
-[node name="Level1" type="Node2D"]
+[node name="Level2" type="Node2D"]
 script = ExtResource("2_level_script")
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
@@ -54,34 +54,51 @@ collision_layer = 1
 collision_mask = 1
 
 [node name="Player" parent="." instance=ExtResource("4_player")]
-position = Vector2(100, 600)
+position = Vector2(96, 608)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 current = true
 
 [node name="Collectible1" parent="." instance=ExtResource("5_collectible")]
-position = Vector2(240, 480)
+position = Vector2(320, 544)
 
 [node name="Collectible2" parent="." instance=ExtResource("5_collectible")]
-position = Vector2(448, 416)
+position = Vector2(576, 480)
 
 [node name="Collectible3" parent="." instance=ExtResource("5_collectible")]
-position = Vector2(864, 352)
+position = Vector2(944, 416)
+
+[node name="Collectible4" parent="." instance=ExtResource("5_collectible")]
+position = Vector2(1328, 400)
 
 [node name="Checkpoint1" parent="." instance=ExtResource("10_checkpoint")]
-position = Vector2(560, 416)
+position = Vector2(672, 480)
+checkpoint_id = 1
+
+[node name="MovingPlatform1" parent="." instance=ExtResource("12_moving_platform")]
+position = Vector2(480, 544)
+end_position = Vector2(480, 448)
+duration = 3.0
 
 [node name="Hazard1" parent="." instance=ExtResource("9_hazard")]
-position = Vector2(640, 656)
+position = Vector2(768, 688)
 
 [node name="Hazard2" parent="." instance=ExtResource("9_hazard")]
-position = Vector2(672, 656)
+position = Vector2(800, 688)
+
+[node name="Hazard3" parent="." instance=ExtResource("9_hazard")]
+position = Vector2(832, 688)
 
 [node name="Enemy1" parent="." instance=ExtResource("11_enemy")]
-position = Vector2(960, 608)
+position = Vector2(1088, 672)
+patrol_distance = 256.0
+
+[node name="Enemy2" parent="." instance=ExtResource("11_enemy")]
+position = Vector2(1408, 608)
+patrol_distance = 192.0
 
 [node name="Goal" parent="." instance=ExtResource("6_goal")]
-position = Vector2(1120, 480)
+position = Vector2(1520, 544)
 
 [node name="HUD" parent="." instance=ExtResource("8_hud")]
 

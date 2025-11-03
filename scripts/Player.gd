@@ -25,7 +25,14 @@ var jump_buffer_timer: float = 0.0
 @export var death_y: float = 1000.0
 var _is_dead: bool = false
 
+# Invulnerability
+@export var invulnerability_duration: float = 1.0
+var _is_invulnerable: bool = false
+var _invulnerability_timer: float = 0.0
+
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var jump_audio: AudioStreamPlayer2D = $JumpAudio if has_node("JumpAudio") else null
+@onready var damage_audio: AudioStreamPlayer2D = $DamageAudio if has_node("DamageAudio") else null
 
 func _ready() -> void:
     add_to_group("player")
@@ -34,6 +41,12 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
     if _is_dead:
         return
+    
+    if _is_invulnerable:
+        _invulnerability_timer -= delta
+        if _invulnerability_timer <= 0:
+            _is_invulnerable = false
+            modulate = Color.WHITE
     
     # Check for death first
     if global_position.y > death_y:
@@ -72,6 +85,7 @@ func _physics_process(delta: float) -> void:
         velocity.y = jump_velocity
         coyote_timer = 0.0
         jump_buffer_timer = 0.0
+        _play_jump_sfx()
     
     # Variable jump height: release jump early for shorter jump
     if Input.is_action_just_released("jump") and velocity.y < 0:
@@ -103,3 +117,39 @@ func update_animations(input_direction: float) -> void:
         animated_sprite.play("run")
     else:
         animated_sprite.play("idle")
+
+func take_damage(amount: int, knockback: Vector2 = Vector2.ZERO) -> void:
+    if _is_dead or _is_invulnerable:
+        return
+    
+    var remaining_lives := GameState.damage(amount)
+    
+    if knockback != Vector2.ZERO:
+        velocity = knockback
+    
+    _is_invulnerable = true
+    _invulnerability_timer = invulnerability_duration
+    modulate = Color(1, 0.5, 0.5, 0.7)
+    
+    if damage_audio:
+        damage_audio.stop()
+        damage_audio.play()
+    
+    if remaining_lives <= 0:
+        _die()
+
+func _play_jump_sfx() -> void:
+    if jump_audio:
+        jump_audio.stop()
+        jump_audio.play()
+
+func respawn_at(position: Vector2) -> void:
+    global_position = position
+    velocity = Vector2.ZERO
+    _is_dead = false
+    _is_invulnerable = true
+    _invulnerability_timer = invulnerability_duration
+    modulate = Color(0.7, 0.7, 1.0, 1)
+    coyote_timer = 0.0
+    jump_buffer_timer = 0.0
+    set_physics_process(true)
