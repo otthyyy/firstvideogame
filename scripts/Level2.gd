@@ -1,14 +1,15 @@
 extends Node2D
 
-@export var level_columns: int = 40
+@export var level_columns: int = 50
 @export var tile_size: int = 32
-@export var ground_row: int = 20
+@export var ground_row: int = 22
 @export var ground_support_depth: int = 1
 @export var platform_definitions: Array = [
-    {"start": Vector2i(6, 16), "length": 5},
-    {"start": Vector2i(13, 14), "length": 4},
-    {"start": Vector2i(21, 12), "length": 6},
-    {"start": Vector2i(30, 15), "length": 5},
+    {"start": Vector2i(8, 18), "length": 4},
+    {"start": Vector2i(15, 16), "length": 3},
+    {"start": Vector2i(22, 14), "length": 5},
+    {"start": Vector2i(30, 16), "length": 4},
+    {"start": Vector2i(38, 13), "length": 6},
 ]
 
 @onready var tile_map: TileMap = $TileMap
@@ -59,7 +60,7 @@ func _on_player_died() -> void:
         _respawn_player()
 
 func _on_goal_reached() -> void:
-    _show_end_menu("Level Complete!", true)
+    _show_end_menu("Level 2 Complete!", true)
 
 func _unhandled_input(event: InputEvent) -> void:
     if event.is_action_pressed("ui_cancel") and not end_menu.visible:
@@ -88,11 +89,8 @@ func _show_end_menu(message: String, is_level_complete: bool = false) -> void:
     end_label.text = message
     score_summary_label.text = "Score: %03d" % GameState.score
     end_menu.visible = true
-    next_button.visible = is_level_complete
-    if is_level_complete:
-        next_button.grab_focus()
-    else:
-        restart_button.grab_focus()
+    next_button.visible = false
+    restart_button.grab_focus()
 
 func _on_restart_button_pressed() -> void:
     GameState.reset_progress()
@@ -106,7 +104,7 @@ func _on_quit_to_menu_from_end_pressed() -> void:
 
 func _on_next_button_pressed() -> void:
     get_tree().paused = false
-    get_tree().change_scene_to_file("res://scenes/Level2.tscn")
+    get_tree().change_scene_to_file("res://scenes/MainMenu.tscn")
 
 func _build_level() -> void:
     if not tile_map:
